@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PruebaXamarinJuanAvila.View.MainView"
+             x:Name="Main">
+    <AbsoluteLayout 
+        VerticalOptions="FillAndExpand"
+        HorizontalOptions="FillAndExpand">
+        
+        <StackLayout
+            AbsoluteLayout.LayoutFlags="All" 
+            AbsoluteLayout.LayoutBounds="0,0,1,.1"
+            Padding="30,10,30,0">
+            <Frame BorderColor="{StaticResource Black}" 
+                   Padding="0"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   HasShadow="False">
+                <StackLayout Orientation="Horizontal">
+                    <Entry Text="{Binding FilterCountries,Mode=TwoWay}"
+                           HorizontalOptions="FillAndExpand"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="Center"></Entry>
+                    <Image Source="Search.png" 
+                           HorizontalOptions="End" 
+                           VerticalOptions="Center"
+                           HeightRequest="25"
+                           WidthRequest="25"></Image>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+        
+        <StackLayout
+            AbsoluteLayout.LayoutFlags="All" 
+            AbsoluteLayout.LayoutBounds="0,1,1,.9"
+            Padding="30,0,30,10">
+            <Frame BorderColor="{StaticResource Black}" 
+                   Padding="1"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand"
+                   HasShadow="False">
+                <CollectionView
+                    ItemsSource="{Binding CountriesModels,Mode=OneWay}"
+                    SelectionMode="None" 
+                    VerticalScrollBarVisibility="Always"
+                    x:Name="CountriesCollection">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="1" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10">
+                                <Frame BorderColor="{StaticResource Black}"
+                                       VerticalOptions="FillAndExpand"
+                                       HorizontalOptions="FillAndExpand"
+                                       HasShadow="True">
+                                    <StackLayout 
+                                        Orientation="Horizontal">
+                                        <Frame 
+                                            HeightRequest="70"
+                                            WidthRequest="70"
+                                            BorderColor="{StaticResource Black}"
+                                            HasShadow="False">
+                                            <Frame.GestureRecognizers>
+                                                        <TapGestureRecognizer 
+                                                            Command="{Binding Source={x:Reference Main},Path=BindingContext.GoToMapCommand}" CommandParameter="{Binding .}"/>
+                                            </Frame.GestureRecognizers>
+                                            <Label 
+                                                VerticalOptions="Center"
+                                                HorizontalOptions="Center"
+                                                Text="Go!"
+                                                FontSize="Large"></Label>
+                                        </Frame>
+                                        <StackLayout 
+                                            Spacing="0"
+                                            Padding="1"
+                                            Orientation="Vertical"
+                                            VerticalOptions="FillAndExpand">
+                                            <Label 
+                                                Text="{Binding name}"
+                                                Style="{StaticResource LabelTitle}"></Label>
+                                            <Label
+                                                Text="{Binding capital}"
+                                                Style="{StaticResource LabelContent}"></Label>
+                                            <Label 
+                                                Text="{Binding region}"
+                                                Style="{StaticResource LabelTitle}"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
+        </StackLayout>
+        
+    </AbsoluteLayout>
+
+</ContentPage>
